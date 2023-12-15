@@ -10,7 +10,7 @@ Graphics: NVIDIA GTX 1050 or equivalent
 Storage: 15GB available space
 Installation Steps
 
-Download the installer from [Official Website].
+Download the installer from [ Website].
 Run the installer and follow the on-screen instructions.
 Once installed, open the game from your desktop or start menu.
 
