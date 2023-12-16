@@ -1,31 +1,47 @@
+#include <string>
+#include <fstream>
+
+enum class Gender {
+    Male,
+    Female,
+    NonBinary
+};
+
 class SuperpoweredIndividual {
 public:
-    SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power);
+    SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender);
     void usePower();
     std::string getFullName() const;
-    // Add additional functions...
+    Gender getGender() const;
+    // Other methods...
 
 private:
     std::string firstName;
     std::string lastName;
     std::string power;
-    // NEED: Other attributes
+    Gender gender;
+    // Add attributes...
 };
 
-SuperpoweredIndividual::SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power)
-    : firstName(firstName), lastName(lastName), power(power) {
-    // NEED: Constructor implementation
+SuperpoweredIndividual::SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender)
+    : firstName(firstName), lastName(lastName), power(power), gender(gender) {
+    // Con implementation...
 }
 
 std::string SuperpoweredIndividual::getFullName() const {
     return firstName + " " + lastName;
 }
 
-void SuperpoweredIndividual::usePower() {
-    // NEED: Implement power usage logic
+Gender SuperpoweredIndividual::getGender() const {
+    return gender;
 }
 
-#include <fstream>
+void SuperpoweredIndividual::usePower() {
+    // NEED TO: implement power usage logic...
+}
+
+
+
 
 void saveGame(const SuperpoweredIndividual& character) {
     std::ofstream file("savegame.txt");
