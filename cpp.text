@@ -1,0 +1,92 @@
+// Pet.h
+#ifndef PET_H
+#define PET_H
+
+#include <string>
+
+enum class ElementType {
+    Fire, Water, Earth, Air // Extend as needed
+};
+
+class Pet {
+private:
+    std::string name;
+    int health;
+    int happiness;
+    int level;
+    ElementType element;
+
+public:
+    Pet(const std::string& petName = "Unnamed Pet", ElementType petElement = ElementType::Fire);
+
+    void setName(const std::string& newName);
+    std::string getName() const;
+
+    void setElement(ElementType newElement);
+    ElementType getElement() const;
+
+    void useElementalAttack() const;
+    void useElementalDefense() const;
+
+    // more
+};
+
+#endif
+
+
+// Pet.cpp
+#include "Pet.h"
+#include <iostream>
+
+Pet::Pet(const std::string& petName, ElementType petElement)
+    : name(petName), health(100), happiness(100), level(1), element(petElement) {}
+
+void Pet::setName(const std::string& newName) {
+    name = newName;
+}
+
+std::string Pet::getName() const {
+    return name;
+}
+
+void Pet::setElement(ElementType newElement) {
+    element = newElement;
+}
+
+ElementType Pet::getElement() const {
+    return element;
+}
+
+void Pet::useElementalAttack() const {
+    // Implementation of elemental attack
+}
+
+void Pet::useElementalDefense() const {
+    // Implementation of elemental defense
+}
+
+// more
+
+// Game.h
+#ifndef GAME_H
+#define GAME_H
+
+#include "Pet.h"
+#include <vector>
+
+class Game {
+private:
+    std::vector<Pet> pets;
+    std::vector<Pet*> favorites;
+
+public:
+    void addPet(const Pet& newPet);
+    void addToFavorites(const std::string& petName);
+    void removeFromFavorites(const std::string& petName);
+    // Other game-related methods...
+};
+
+#endif
+
+
+
