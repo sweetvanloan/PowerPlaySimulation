@@ -1,92 +1,44 @@
-// Pet.h
-#ifndef PET_H
-#define PET_H
-
-#include <string>
-
-enum class ElementType {
-    Fire, Water, Earth, Air // Extend as needed
+enum class Alignment {
+    Good,
+    Neutral,
+    Evil
 };
 
-class Pet {
-private:
-    std::string name;
-    int health;
-    int happiness;
-    int level;
-    ElementType element;
-
+class SuperpoweredIndividual {
 public:
-    Pet(const std::string& petName = "Unnamed Pet", ElementType petElement = ElementType::Fire);
+    SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment);
+    void usePower();
+    std::string getFullName() const;
+    Gender getGender() const;
+    Alignment getAlignment() const;
+    // Other methods...
 
-    void setName(const std::string& newName);
-    std::string getName() const;
-
-    void setElement(ElementType newElement);
-    ElementType getElement() const;
-
-    void useElementalAttack() const;
-    void useElementalDefense() const;
-
-    // more
-};
-
-#endif
-
-
-// Pet.cpp
-#include "Pet.h"
-#include <iostream>
-
-Pet::Pet(const std::string& petName, ElementType petElement)
-    : name(petName), health(100), happiness(100), level(1), element(petElement) {}
-
-void Pet::setName(const std::string& newName) {
-    name = newName;
-}
-
-std::string Pet::getName() const {
-    return name;
-}
-
-void Pet::setElement(ElementType newElement) {
-    element = newElement;
-}
-
-ElementType Pet::getElement() const {
-    return element;
-}
-
-void Pet::useElementalAttack() const {
-    // Implementation of elemental attack
-}
-
-void Pet::useElementalDefense() const {
-    // Implementation of elemental defense
-}
-
-// more
-
-// Game.h
-#ifndef GAME_H
-#define GAME_H
-
-#include "Pet.h"
-#include <vector>
-
-class Game {
 private:
-    std::vector<Pet> pets;
-    std::vector<Pet*> favorites;
-
-public:
-    void addPet(const Pet& newPet);
-    void addToFavorites(const std::string& petName);
-    void removeFromFavorites(const std::string& petName);
-    // Other game-related methods...
+    std::string firstName;
+    std::string lastName;
+    std::string power;
+    Gender gender;
+    Alignment alignment;
+    // Other attributes...
 };
 
-#endif
+SuperpoweredIndividual::SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment)
+    : firstName(firstName), lastName(lastName), power(power), gender(gender), alignment(alignment) {
+    // Constructor implementation...
+}
 
+std::string SuperpoweredIndividual::getFullName() const {
+    return firstName + " " + lastName;
+}
 
+Gender SuperpoweredIndividual::getGender() const {
+    return gender;
+}
 
+Alignment SuperpoweredIndividual::getAlignment() const {
+    return alignment;
+}
+
+void SuperpoweredIndividual::usePower() {
+    // Implement power usage logic...
+}
