@@ -63,13 +63,13 @@ Alignment SuperpoweredIndividual::getAlignment() const {
 // Main 
 int main() {
     SuperpoweredIndividual hero1("Jill", "Blake", "Invisibility", Gender::Female, Alignment::Good);
-    SuperpoweredIndividual villain1("Jack", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil);
+    SuperpoweredIndividual villain1("Jack", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil); 
 
     // EX: usage
     hero1.usePower();
     villain1.usePower();
 
-    // Add more functionality 
+    // more functionality needs to be added
 
     return 0;
 }
