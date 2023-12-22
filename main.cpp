@@ -1,31 +1,28 @@
 #include <iostream>
 #include <string>
 
-//   Gender
+// Gender
 enum class Gender {
     Male,
     Female,
     NonBinary
-    Fluid
 };
 
-//   Alignment
+// Alignment
 enum class Alignment {
     Good,
     Neutral,
     Evil
 };
 
-// SuperpoweredIndividual Class
-class SuperpoweredIndividual {
+// MetaHuman Class Def
+class MetaHuman {
 public:
-    SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment);
+    MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& power, Gender gender, Alignment alignment);
 
-    void usePower() const;
-    std::string getFullName() const;
-    std::string getPower() const;
-    Gender getGender() const;
-    Alignment getAlignment() const;
+    void activatePower() const;
+    std::string getName() const;
+    std::string describe() const;
 
 private:
     std::string firstName;
@@ -33,43 +30,57 @@ private:
     std::string power;
     Gender gender;
     Alignment alignment;
+
+    std::string genderToString() const;
+    std::string alignmentToString() const;
 };
 
-// Constructor 
-SuperpoweredIndividual::SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment)
-    : firstName(std::move(firstName)), lastName(std::move(lastName)), power(std::move(power)), gender(gender), alignment(alignment) {}
+// Constructor Implementation
+MetaHuman::MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& power, Gender gender, Alignment alignment)
+    : firstName(firstName), lastName(lastName), power(power), gender(gender), alignment(alignment) {}
 
 // Member Functions Implementation
-void SuperpoweredIndividual::usePower() const {
-    std::cout << getFullName() << " uses their power: " << getPower() << std::endl;
+void MetaHuman::activatePower() const {
+    std::cout << getName() << " uses their power: " << power << std::endl;
 }
 
-std::string SuperpoweredIndividual::getFullName() const {
+std::string MetaHuman::getName() const {
     return firstName + " " + lastName;
 }
 
-std::string SuperpoweredIndividual::getPower() const {
-    return power;
+std::string MetaHuman::describe() const {
+    return getName() + " | Power: " + power + " | Gender: " + genderToString() + " | Alignment: " + alignmentToString();
 }
 
-Gender SuperpoweredIndividual::getGender() const {
-    return gender;
+std::string MetaHuman::genderToString() const {
+    switch (gender) {
+        case Gender::Male: return "Male";
+        case Gender::Female: return "Female";
+        case Gender::NonBinary: return "Non-Binary";
+        default: return "Unknown";
+    }
 }
 
-Alignment SuperpoweredIndividual::getAlignment() const {
-    return alignment;
+std::string MetaHuman::alignmentToString() const {
+    switch (alignment) {
+        case Alignment::Good: return "Good";
+        case Alignment::Neutral: return "Neutral";
+        case Alignment::Evil: return "Evil";
+        default: return "Unknown";
+    }
 }
 
-// Main 
+// Main Function
 int main() {
-    SuperpoweredIndividual hero1("Jill", "Blake", "Invisibility", Gender::Female, Alignment::Good);
-    SuperpoweredIndividual villain1("Jack", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil); 
+    MetaHuman hero("Morgan", "Blake", "Invisibility", Gender::Female, Alignment::Good);
+    MetaHuman villain("Alex", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil);
 
-    // EX: usage
-    hero1.usePower();
-    villain1.usePower();
+    // Demo
+    std::cout << hero.describe() << std::endl;
+    hero.activatePower();
 
-    // more functionality needs to be added
+    std::cout << villain.describe() << std::endl;
+    villain.activatePower();
 
     return 0;
 }
