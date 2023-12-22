@@ -1,17 +1,31 @@
+#include <iostream>
+#include <string>
+
+//   Gender
+enum class Gender {
+    Male,
+    Female,
+    NonBinary
+    Fluid
+};
+
+//   Alignment
 enum class Alignment {
     Good,
     Neutral,
     Evil
 };
 
+// SuperpoweredIndividual Class
 class SuperpoweredIndividual {
 public:
     SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment);
-    void usePower();
+
+    void usePower() const;
     std::string getFullName() const;
+    std::string getPower() const;
     Gender getGender() const;
     Alignment getAlignment() const;
-    // Other methods...
 
 private:
     std::string firstName;
@@ -19,16 +33,23 @@ private:
     std::string power;
     Gender gender;
     Alignment alignment;
-    // Other attributes...
 };
 
+// Constructor 
 SuperpoweredIndividual::SuperpoweredIndividual(std::string firstName, std::string lastName, std::string power, Gender gender, Alignment alignment)
-    : firstName(firstName), lastName(lastName), power(power), gender(gender), alignment(alignment) {
-    // Constructor implementation...
+    : firstName(std::move(firstName)), lastName(std::move(lastName)), power(std::move(power)), gender(gender), alignment(alignment) {}
+
+// Member Functions Implementation
+void SuperpoweredIndividual::usePower() const {
+    std::cout << getFullName() << " uses their power: " << getPower() << std::endl;
 }
 
 std::string SuperpoweredIndividual::getFullName() const {
     return firstName + " " + lastName;
+}
+
+std::string SuperpoweredIndividual::getPower() const {
+    return power;
 }
 
 Gender SuperpoweredIndividual::getGender() const {
@@ -39,6 +60,16 @@ Alignment SuperpoweredIndividual::getAlignment() const {
     return alignment;
 }
 
-void SuperpoweredIndividual::usePower() {
-    // Implement power usage logic...
+// Main 
+int main() {
+    SuperpoweredIndividual hero1("Jill", "Blake", "Invisibility", Gender::Female, Alignment::Good);
+    SuperpoweredIndividual villain1("Jack", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil);
+
+    // EX: usage
+    hero1.usePower();
+    villain1.usePower();
+
+    // Add more functionality 
+
+    return 0;
 }
