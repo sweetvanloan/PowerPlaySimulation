@@ -31,12 +31,20 @@ class Player:
             self.hand.append(card)
             print(f"{self.name} drew {card}")
 
-    def play_card(self):
-        if self.hand:
-            return self.hand.pop(0)
-        else:
-            print(f"{self.name} has no cards to play!")
-            return None
+    def play_creature(self):
+        creature_cards = [card for card in self.hand if isinstance(card, CreatureCard)]
+        if creature_cards:
+            return creature_cards.pop(0)
+        return None
+
+    def play_enhancement(self):
+        enhancement_cards = [card for card in self.hand if isinstance(card, EnhancementCard)]
+        if enhancement_cards:
+            enhancement = enhancement_cards.pop(0)
+            self.active_enhancements.append(enhancement)
+            print(f"{self.name} played {enhancement}")
+            return enhancement
+        return None
 
 def create_deck():
     creatures = [
@@ -49,58 +57,36 @@ def create_deck():
         CreatureCard("Unicorn", 6, 5, "Light"),
         CreatureCard("Wizard", 5, 4, "Arcane"),
         CreatureCard("Werewolf", 7, 6, "Dark"),
-        # Add more creatures here
     ]
-
     enhancements = [
         EnhancementCard("Mystic Forest", "+2 Defense to all creatures"),
         EnhancementCard("Volcanic Terrain", "+3 Attack to Fire creatures"),
-        # Add more enhancements here
     ]
-
-    deck = creatures * 3 + enhancements * 2  # Adjust proportions as needed
+    deck = creatures * 3 + enhancements * 2
     random.shuffle(deck)
     return deck
 
-def apply_enhancements(player, card):
-    for enhancement in player.active_enhancements:
-        # Define the logic to apply enhancement effects here
-        print(f"Applying {enhancement.effect} to {card.name}")
+def battle(players):
+    for player in players:
+        player.draw_card()
+        player.play_enhancement()
+        creature = player.play_creature()
+        if creature:
+            print(f"{player.name} plays {creature.name}!")
 
-def battle(card1, card2):
-    print(f"{card1.name} battles {card2.name}!")
-    if card1.attack > card2.defense:
-        print(f"{card1.name} wins!")
-    elif card1.attack < card2.defense:
-        print(f"{card2.name} wins!")
-    else:
-        print("The battle is a draw!")
+    # Implement battle logic here
+    print("Battle phase...")
 
-# Game Setup
-player1 = Player("Player 1")
-player2 = Player("Player 2")
-player1.deck = create_deck()
-player2.deck = create_deck()
+# Game Setup for up to 4 players
+player_names = ["Player 1", "Player 2", "Player 3", "Player 4"]
+players = [Player(name) for name in player_names]
+for player in players:
+    player.deck = create_deck()
 
-# Game Loop (for one round)
+# Game Loop (one round)
 for _ in range(5):
-    player1.draw_card()
-    player2.draw_card()
+    for player in players:
+        player.draw_card()
 
-# Players play enhancement cards
-enhancement1 = player1.play_card()
-if isinstance(enhancement1, EnhancementCard):
-    player1.active_enhancements.append(enhancement1)
-
-enhancement2 = player2.play_card()
-if isinstance(enhancement2, EnhancementCard):
-    player2.active_enhancements.append(enhancement2)
-
-# Players play creature cards and battle
-card1 = player1.play_card()
-card2 = player2.play_card()
-
-if card1 and card2:
-    apply_enhancements(player1, card1)
-    apply_enhancements(player2, card2)
-    battle(card1, card2)
+# Each player plays an enhancement and a creature
+battle(players)
