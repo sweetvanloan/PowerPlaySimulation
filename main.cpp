@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
+#include <optional>
 
-// Gender
+//  Gender
 enum class Gender {
     Male,
     Female,
@@ -15,41 +16,72 @@ enum class Alignment {
     Evil
 };
 
-// MetaHuman Class Def
+// MetaHuman Class 
 class MetaHuman {
 public:
-    MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& power, Gender gender, Alignment alignment);
+    MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& nickname, const std::string& power, Gender gender, Alignment alignment);
 
     void activatePower() const;
+    void marry(MetaHuman& partner);
+    void divorce();
     std::string getName() const;
+    std::string getNickname() const;
     std::string describe() const;
+    bool isMarried() const;
 
 private:
     std::string firstName;
     std::string lastName;
+    std::string nickname;
     std::string power;
     Gender gender;
     Alignment alignment;
+    std::optional<std::string> spouseName;
 
     std::string genderToString() const;
     std::string alignmentToString() const;
 };
 
-// Constructor Implementation
-MetaHuman::MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& power, Gender gender, Alignment alignment)
-    : firstName(firstName), lastName(lastName), power(power), gender(gender), alignment(alignment) {}
+//  Implementation
+MetaHuman::MetaHuman(const std::string& firstName, const std::string& lastName, const std::string& nickname, const std::string& power, Gender gender, Alignment alignment)
+    : firstName(firstName), lastName(lastName), nickname(nickname), power(power), gender(gender), alignment(alignment) {}
 
-// Member Functions Implementation
+// Member Functions 
 void MetaHuman::activatePower() const {
-    std::cout << getName() << " uses their power: " << power << std::endl;
+    std::cout << getName() << " (" << nickname << ") uses their power: " << power << std::endl;
+}
+
+void MetaHuman::marry(MetaHuman& partner) {
+    if (!isMarried() && !partner.isMarried()) {
+        spouseName = partner.getName();
+        partner.spouseName = getName();
+    }
+}
+
+void MetaHuman::divorce() {
+    if (isMarried()) {
+        spouseName.reset();
+    }
 }
 
 std::string MetaHuman::getName() const {
     return firstName + " " + lastName;
 }
 
+std::string MetaHuman::getNickname() const {
+    return nickname;
+}
+
 std::string MetaHuman::describe() const {
-    return getName() + " | Power: " + power + " | Gender: " + genderToString() + " | Alignment: " + alignmentToString();
+    std::string description = getName() + " (" + nickname + ") | Power: " + power + " | Gender: " + genderToString() + " | Alignment: " + alignmentToString();
+    if (isMarried()) {
+        description += " | Married to: " + *spouseName;
+    }
+    return description;
+}
+
+bool MetaHuman::isMarried() const {
+    return spouseName.has_value();
 }
 
 std::string MetaHuman::genderToString() const {
@@ -70,17 +102,24 @@ std::string MetaHuman::alignmentToString() const {
     }
 }
 
-// Main Function
+// Main 
 int main() {
-    MetaHuman hero("Morgan", "Blake", "Invisibility", Gender::Female, Alignment::Good);
-    MetaHuman villain("Alex", "Thorn", "Telekinesis", Gender::NonBinary, Alignment::Evil);
+    MetaHuman hero("Morgan", "Blake", "Shadow", "Invisibility", Gender::Female, Alignment::Good);
+    MetaHuman partner("Jordan", "Reed", "Phoenix", "Telepathy", Gender::NonBinary, Alignment::Neutral);
 
     // Demo
     std::cout << hero.describe() << std::endl;
-    hero.activatePower();
+    std::cout << partner.describe() << std::endl;
 
-    std::cout << villain.describe() << std::endl;
-    villain.activatePower();
+    hero.marry(partner);
+    std::cout << "\nAfter marriage:\n";
+    std::cout << hero.describe() << std::endl;
+    std::cout << partner.describe() << std::endl;
+
+    hero.divorce();
+    std::cout << "\nAfter divorce:\n";
+    std::cout << hero.describe() << std::endl;
+    std::cout << partner.describe() << std::endl;
 
     return 0;
 }
