@@ -7,7 +7,7 @@
 enum class Gender {
     Male,
     Female,
-    NonBinary
+    NonBinary 
 };
 
 // Alignment
