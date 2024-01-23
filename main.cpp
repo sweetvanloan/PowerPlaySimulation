@@ -74,10 +74,10 @@ public:
     static std::shared_ptr<MetaHuman> reproduce(const MetaHuman& parent1, const MetaHuman& parent2);
     void displayFamilyTree() const;
 
-    // Additional methods for inventory, items, etc.
+    // Need to add additional methods for inventory, items, etc.
 };
 
-// MetaHuman class member function implementations
+// Need to add metaHuman class member function implementations
 
 // Main Function
 int main() {
