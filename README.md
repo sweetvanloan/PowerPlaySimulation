@@ -1,4 +1,4 @@
-Welcome to Power Play Simulation
+ Welcome to Power Play Simulation
 
 Installation
 System Requirements
