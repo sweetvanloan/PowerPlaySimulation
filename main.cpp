@@ -8,7 +8,8 @@
 enum class Gender {
     Male,
     Female,
-    NonBinary
+    NonBinary,
+    Genderfluid
 };
 
 // Enumeration for Alignment
